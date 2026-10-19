@@ -8,26 +8,26 @@
 ## and its inverse, and provides functions to get and set them.
 
 makeCacheMatrix <- function(x = matrix()) {
-inverse <- NULL
+inv <- NULL
 
   set <- function(y) {
     x <<- y
-    inverse <<- NULL
+    inv <<- NULL
   }
 
   get <- function() x
 
-  setinverse <- function(solve) {
-    inverse <<- solve
+  setinv <- function(solve) {
+    inv <<- solve
   }
 
-  getinverse <- function() inverse
+  getinv <- function() inv
 
   list(
     set = set,
     get = get,
-    setinverse = setinverse,
-    getinverse = getinverse
+    setinv = setinv,
+    getinv = getinv
   )
 }
 
@@ -37,16 +37,16 @@ inverse <- NULL
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
-inverse <- x$getinverse()
+inv <- x$getinv()
 
-  if (!is.null(inverse)) {
+  if (!is.null(inv)) {
     message("getting cached data")
-    return(inverse)
+    return(inv)
   }
 
   data <- x$get()
-  inverse <- solve(data, ...)
-  x$setinverse(inverse)
+  inv <- solve(data, ...)
+  x$setinv(inv)
 
-  inverse
+  inv
 }
